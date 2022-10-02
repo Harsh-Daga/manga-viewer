@@ -60,10 +60,10 @@ const images = [
 
 
   return (
-    <div className="container">
+    <div >
 
 
-       <ul style={{listStyleType: 'none', display: 'flex'}}>
+       <ul style={{listStyleType: 'none', display: 'flex', justifyContent: 'center'}}>
         <li>
           <Link
             to="/"

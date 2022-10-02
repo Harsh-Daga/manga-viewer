@@ -42,8 +42,8 @@ export default function Rasetsugari() {
   ];
 
   return (
-    <div className="container">
-      <ul style={{ listStyleType: "none", display: "flex" }}>
+    <div >
+      <ul style={{listStyleType: 'none', display: 'flex', justifyContent: 'center'}}>
         <li>
           <Link to="/">
             <button>balloon_dream</button>

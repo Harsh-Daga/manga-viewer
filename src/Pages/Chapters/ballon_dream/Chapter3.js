@@ -57,8 +57,8 @@ export default function Chapter3() {
   ];
 
   return (
-    <div className="container">
-      <ul style={{ listStyleType: "none", display: "flex" }}>
+    <div>
+      <ul style={{listStyleType: 'none', display: 'flex', justifyContent: 'center'}}>
         <li>
           <Link to="/">
             <button
@@ -115,7 +115,6 @@ export default function Chapter3() {
         </li>
       </ul>
       <Carousel images={images} />
-      <br /> <br /> <br />
     </div>
   );
 }
