@@ -104,8 +104,6 @@ const images = [
 
       <Carousel images={images} />
 
-      <br/> <br/> <br/>
-
 
     </div>
   )
