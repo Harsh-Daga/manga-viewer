@@ -1,113 +1,96 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Carousel from "../Components/Carousel";
+import Caraousel from "../Components/Caraousel";
 
 export default function Rasetsugari() {
-  const images = [
-    {
-      title: "1",
-      subtitle: "1/7",
-      img: "https://test-mamba-viewer.s3.us-west-1.amazonaws.com/rasetsigari/000.jpg",
-    },
-    {
-      title: "2",
-      subtitle: "2/7",
-      img: "https://test-mamba-viewer.s3.us-west-1.amazonaws.com/rasetsigari/001.jpg",
-    },
-    {
-      title: "3",
-      subtitle: "3/7",
-      img: "https://test-mamba-viewer.s3.us-west-1.amazonaws.com/rasetsigari/002.jpg",
-    },
-    {
-      title: "4",
-      subtitle: "4/7",
-      img: "https://test-mamba-viewer.s3.us-west-1.amazonaws.com/rasetsigari/003.jpg",
-    },
-    {
-      title: "5",
-      subtitle: "5/7",
-      img: "https://test-mamba-viewer.s3.us-west-1.amazonaws.com/rasetsigari/004.jpg",
-    },
-    {
-      title: "6",
-      subtitle: "6/7",
-      img: "https://test-mamba-viewer.s3.us-west-1.amazonaws.com/rasetsigari/005.jpg",
-    },
-    {
-      title: "7",
-      subtitle: "7/7",
-      img: "https://test-mamba-viewer.s3.us-west-1.amazonaws.com/rasetsigari/006.jpg",
-    },
-  ];
+  const [manga, setManga] = useState([]);
+  const [book, setBook] = useState([]);
+  const [mangachapter, setMangaChapter] = useState(8);
+  const route = "rasetsugari";
+
+  useEffect(() => {
+    const url = "http://18.177.140.79:8080/books/";
+
+    const fetchManga = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        setManga(json);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    const fetchBook = async () => {
+      try {
+        const response = await fetch(url + "1/");
+        const json = await response.json();
+        setBook(json);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchManga();
+    fetchBook();
+    return () => {};
+  }, []);
+
+  const handleClick = (event) => {
+    setMangaChapter(event);
+  };
 
   return (
-    <div >
-      <ul style={{listStyleType: 'none', display: 'flex', justifyContent: 'center'}}>
-        <li>
-          <Link to="/">
-            <button>balloon_dream</button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/bound_eye_siora">
-            <button>bound_eye_siora</button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/rasetsugari">
-            <button
-              style={{
-                backgroundColor: "darkgreen",
-                border: "2px solid gold",
-                color: "white",
-              }}
-            >
-              rasetsugari
-            </button>
-          </Link>
-        </li>
-      </ul>
-
-      <ul
-        style={{
-          listStyleType: "none",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <li>
-          <Link to="/rasetsugari">
-            <button
-              style={{
-                backgroundColor: "darkgreen",
-                border: "2px solid gold",
-                color: "white",
-              }}
-            >
-              1
-            </button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/rasetsugari/2/">
-            <button>2</button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/rasetsugari/3/">
-            <button>3</button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/rasetsugari/4/">
-            <button>4</button>
-          </Link>
-        </li>
-      </ul>
-
-      <Carousel images={images} />
-
+    <div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {manga.map((item) => (
+          <div>
+            <ul style={{ listStyleType: "none", display: "flex" }}>
+              <li>
+                <Link to={`/${item.title}/`}>
+                  <button
+                    style={{
+                      backgroundColor:
+                        `${route}` == `${item.title}` ? "darkgreen" : "",
+                      color: `${route}` == `${item.title}` ? "white" : "black",
+                      border:
+                      `${route}` == `${item.title}` ? "2px solid gold" : "",
+                    }}
+                    onClick={handleClick}
+                  >
+                    {item.title}
+                  </button>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {manga.map((item) =>
+          item.chapter_ids.map((chapter) =>
+            route == item.title ? (
+              <button
+                onClick={() => handleClick(chapter)}
+                style={{
+                  backgroundColor:
+                    `${mangachapter}` == `${chapter}` ? "darkgreen" : "",
+                  color: `${mangachapter}` == `${chapter}` ? "white" : "black",
+                  border:
+                      `${mangachapter}` == `${chapter}` ? "2px solid gold" : "",
+                }}
+              >
+                {chapter}
+              </button>
+            ) : (
+              <div></div>
+            )
+          )
+        )}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Caraousel route={route} mangachapter={mangachapter} />
+      </div>
     </div>
   );
 }
