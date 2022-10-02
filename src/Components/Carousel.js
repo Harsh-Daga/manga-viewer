@@ -34,7 +34,7 @@ function Carousel({images}) {
           <ArrowForwardIosIcon style={{ fontSize: 30 }} />
         </div>
       </div>
-      <br/><br/><br/>
+      <br/><br/>
     </div>
   );
 }
