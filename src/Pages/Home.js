@@ -52,10 +52,10 @@ export default function Home() {
                   <button
                     style={{
                       backgroundColor:
-                        `${route}` == `${item.title}` ? "darkgreen" : "",
-                      color: `${route}` == `${item.title}` ? "white" : "black",
+                        `${route}` === `${item.title}` ? "darkgreen" : "",
+                      color: `${route}` === `${item.title}` ? "white" : "black",
                       border:
-                      `${route}` == `${item.title}` ? "2px solid gold" : "",
+                      `${route}` === `${item.title}` ? "2px solid gold" : "",
                     }}
                   >
                     {item.title}
@@ -69,15 +69,15 @@ export default function Home() {
       <div style={{ display: "flex", justifyContent: "center" }}>
         {manga.map((item) =>
           item.chapter_ids.map((chapter) =>
-            route == item.title ? (
+            route === item.title ? (
               <button
                 onClick={() => handleClick(chapter)}
                 style={{
                   backgroundColor:
-                    `${mangachapter}` == `${chapter}` ? "darkgreen" : "",
-                  color: `${mangachapter}` == `${chapter}` ? "white" : "black",
+                    `${mangachapter}` === `${chapter}` ? "darkgreen" : "",
+                  color: `${mangachapter}` === `${chapter}` ? "white" : "black",
                   border:
-                      `${mangachapter}` == `${chapter}` ? "2px solid gold" : "",
+                      `${mangachapter}` === `${chapter}` ? "2px solid gold" : "",
                 }}
               >
                 {chapter}
